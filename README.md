@@ -11,4 +11,4 @@ The Manager has the option to view products on sale, view low inventory, add to 
 
 ## Supervisor
 The Supervisor has the option to view product sales by department, create a new department or delete a department
-(/images/customer.png)
+![supervisor](https://user-images.githubusercontent.com/42132722/48282480-6a19e080-e41f-11e8-9f70-a50eb1d124fe.PNG)
