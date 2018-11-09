@@ -5,8 +5,8 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "",
-  database: "bamazon_DB"
+  password: "Buddy#67",
+  database: "bamazon"
 });
 
 var itemID;
@@ -18,31 +18,34 @@ var totalSale;
 
 connection.connect(function(err) {
   if (err) throw err;
-  readProducts(); 
+  readProducts();
 });
 
-
+// lists out all of the inventory
 function readProducts() {
+  console.log("Listing all available products: \n");
   connection.query("SELECT * FROM products", function(err, res) {
-    if (err) throw err; 
+    if (err) throw err;
+
   for (var i = 0; i < res.length; i++) {
       console.log(
         "Item ID: " +
           res[i].item_id +
           " || Product Name: " +
-          res[i].ProductName +
+          res[i].product_name +
           " || Department Name: " +
-          res[i].DepartmentName +
+          res[i].department_name +
           " || Price: " +
-          res[i].Price +
+          res[i].price +
           " || Stock Quantity: " +
-          res[i].StockQuantity
+          res[i].stock_quantity
       );
     }
     purchase();
   });
 }
 
+// function where the customer decides what they are ordering
 function purchase() {
 
   inquirer.prompt([
@@ -62,7 +65,6 @@ function purchase() {
   });
 }
 
-
 function orderProduct() {
   
   var query = connection.query("SELECT * FROM products WHERE item_id=?", [itemID], function(err, res) {
@@ -72,19 +74,21 @@ function orderProduct() {
 
   
 
-  updateProduct(); 
+  updateProduct();
  
   });
 
 }
 
+// after the customer orders something this function asks if they want ot order more or quit
 function startOver() {
-  inquirer.prompt( {
+  inquirer
+    .prompt( {
       type: "confirm",
       message: "Do you want to order more products? ",
       name: "confirm",
       default: false
-    })
+    },)
     .then(function(answer) {
       if (answer.confirm) {
         purchase();
@@ -96,7 +100,9 @@ function startOver() {
     });
 }
 
+// updates the stock and shows price of order
 function updateProduct() {
+ console.log("Updating below: \n");
  if((stockquantity-orderquantity)>0){
   var query = connection.query(
     "UPDATE products SET ? WHERE ?",
@@ -124,9 +130,9 @@ function updateProduct() {
  console.log("Your total cost is: $", totalCost);
  connection.end();
   }
-}
+} 
 
-
+//calculating cost
 function calculateCost() {
   currentCost = price * orderquantity;
   totalCost+=currentCost;

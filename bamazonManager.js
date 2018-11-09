@@ -5,8 +5,8 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "",
-  database: "bamazon_DB"
+  password: "Buddy#67",
+  database: "bamazon"
 });
 
 
@@ -16,8 +16,10 @@ connection.connect(function(err) {
   runSearch();
 });
 
+// prompt user on what thye want to do
 function runSearch() {
-    inquirer.prompt({
+    inquirer
+      .prompt({
         name: "action",
         type: "list",
         message: "What would you like to do?",
@@ -53,6 +55,7 @@ function runSearch() {
     });
 }
 
+// lists all available products
 function viewProducts() {
 
     console.log("Listing all available products: \n");
@@ -63,21 +66,21 @@ function viewProducts() {
           "Item ID: " +
             res[i].item_id +
             " || Product Name: " +
-            res[i].ProductName +
+            res[i].product_name +
             " || Department Name: " +
-            res[i].DepartmentName +
+            res[i].department_name +
             " || Price: " +
-            res[i].Price +
+            res[i].price +
             " || Stock Quantity: " +
-            res[i].StockQuantity
+            res[i].stock_quantity
         );
       }
       runSearch()
     });
   
   }
-
   
+  //shows all inventory between 5 units and 0 units
 function viewLowInv(){
     console.log("Listing low inventory products: \n");
     var query = "SELECT * FROM products WHERE stock_quantity BETWEEN ? AND ?";
@@ -91,13 +94,13 @@ function viewLowInv(){
             "Item ID: " +
             res[i].item_id +
             " || Product Name: " +
-            res[i].ProductName +
+            res[i].product_name +
             " || Department Name: " +
-            res[i].DepartmentName +
+            res[i].department_name +
             " || Price: " +
-            res[i].Price +
+            res[i].price +
             " || Stock Quantity: " +
-            res[i].StockQuantity
+            res[i].stock_quantity
         );
       }
     }
@@ -112,6 +115,7 @@ function addInv() {
     addInvInquire();
 }
 
+// asks what the user wants to add and how many
 function addInvInquire()  {
     inquirer.prompt([
       {
@@ -125,7 +129,7 @@ function addInvInquire()  {
       itemID = answers.itemID;
       addquantity = parseInt(answers.addquantity)
       logProduct();
-    }); 
+    });
   }
 
 function logProduct() {
@@ -136,7 +140,6 @@ function logProduct() {
   }
 
   function updateProduct() {
-    // console.log(typeof(addquantity));
     console.log("Updating below: \n");
      var query = connection.query(
        "UPDATE products SET ? WHERE ?",
@@ -154,8 +157,8 @@ function logProduct() {
      );
       console.log(query.sql);
       viewProducts();
-   } 
-
+   }
+   
 function addNewproduct()  {
     var itemID;
     var name;
@@ -193,10 +196,10 @@ function addNewproduct()  {
         "INSERT INTO products SET ?",
         {
           item_id: itemID,
-          ProductName: name,
-          DepartmentName: dept,
-          Price: price,
-          StockQuantity: stock
+          product_name: name,
+          department_name: dept,
+          price: price,
+          stock_quantity: stock
         },
         function(err, res) {
           console.log(res.affectedRows + " product inserted!\n");
@@ -208,7 +211,7 @@ function addNewproduct()  {
   }
 
 function deleteProduct()  {
-  var itemID1;
+  var itemIDD;
 
   console.log("Which product do you want to delete? "); 
   inquirer.prompt([
@@ -217,13 +220,13 @@ function deleteProduct()  {
       message: "Item ID: "
     }
   ]).then(function(answers) {
-    itemID1 = answers.itemID;
+    itemIDD = answers.itemID;
 
     console.log("Deleting product below: \n");
     connection.query(
       "DELETE FROM products WHERE ?",
       {
-        item_id: itemID1
+        item_id: itemIDD
       },
       function(err, res) {
         console.log(res.affectedRows + " products deleted!\n");

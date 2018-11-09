@@ -1,114 +1,73 @@
-DROP DATABASE IF EXISTS bamazon_DB;
-CREATE database bamazon_DB;
+DROP DATABASE IF EXISTS bamazon;
 
-USE bamazon_DB;
+CREATE DATABASE bamazon;
 
--- table for the products
+USE bamazon;
+
 CREATE TABLE products (
-  item_id INTEGER NOT NULL AUTO_INCREMENT,
-  ProductName varchar(50) NOT NULL,
-  DepartmentName varchar(50) NOT NULL,
-  Price DECIMAL(4,2) NOT NULL,
-  StockQuantity int NOT NULL,
-  product_sales DECIMAL(11,2) NOT NULL,
-  PRIMARY KEY (item_id)
+  id INT NOT NULL AUTO_INCREMENT,
+  item_id INT NOT NULL,
+  product_name VARCHAR(45) NULL,
+  department_name VARCHAR(45) NULL,
+  price DECIMAL(10,2) NULL,
+  stock_quantity INT NULL,
+  product_sales INT NULL,
+  PRIMARY KEY (id)
 );
 
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'Playstation',
-'Electronics',
-399.99,
-200);
 
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'keyboard',
-'Electronics',
-29.99,
-800);
-
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'Shot Glass',
-'Home',
-19.99,
-100);
-
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'Record Player',
-'Electronics',
-249.99,
-150);
-
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'Toy car',
-'Toys',
-15.00,
-400);
-
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'Leeroy Jenkins T-shirt',
-'Clothing',
-25.99,
-100);
-
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'socks (pack of 25)',
-'Clothing',
-24.99,
-500);
-
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'Gloves',
-'Clothing',
-29.99,
-120);
-
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'Large Dog cage',
-'Pets',
-149.99,
-70);
-
-INSERT INTO products (ProductName, DepartmentName, Price, StockQuantity) VALUES (
-'Snuggie',
-'Home',
-29.99,
-600);
-
--- table for the departments
-CREATE TABLE Departments(
-Department_Id INTEGER AUTO_INCREMENT,
-Department_name varchar(50) NOT NULL,
-Over_head_costs DECIMAL(11,2) NOT NULL,
-product_sales INTEGER NULL,
-PRIMARY KEY(Department_Id)
+CREATE TABLE departments (
+  department_id INT NOT NULL AUTO_INCREMENT,
+  department_name VARCHAR(45) NULL,
+  product_sales INT NULL,
+  over_head_cost DECIMAL(10,2) NULL,
+  PRIMARY KEY (department_id)
 );
 
-INSERT INTO Departments (Department_name, Over_head_costs, product_sales) VALUES (
-'Clothing',
-10000,
-0
-);
 
-INSERT INTO Departments (Department_name, Over_head_costs, product_sales) VALUES (
-'Pets',
-10000,
-0
-);
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (1234, "banana", "fruit", 1.50, 1000, 0);
 
-INSERT INTO Departments (Department_name, Over_head_costs, product_sales) VALUES (
-'Home',
-20000,
-0
-);
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (4321, "apple", "fruit", 2.50, 500, 0);
 
-INSERT INTO Departments (Department_name, Over_head_costs, product_sales) VALUES (
-'Electronics',
-50000,
-0
-);
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (1122,"beer", "drink", 5.50, 300, 0);
 
-INSERT INTO Departments (Department_name, Over_head_costs, product_sales) VALUES (
-'Toys',
-25000,
-0
-);
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (1133,"bread", "food", 2.50, 100, 0);
+
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (1144,"pear", "fruit", 1.50, 300, 0);
+
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (1155,"pen", "office", 1.50, 400, 0);
+
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (1166,"eraser", "office", 0.50, 400, 0);
+
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (1177,"lego", "toy", 10.00, 100, 0);
+
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (1188,"orange juice", "drink", 3.50, 300, 0);
+
+INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales)
+VALUES (1199,"red wine", "drink", 14.00, 50, 0);
+
+
+
+INSERT INTO departments (department_name, over_head_cost)
+VALUES ("drink", 6000);
+
+INSERT INTO departments (department_name, over_head_cost)
+VALUES ("office", 3000);
+
+INSERT INTO departments (department_name, over_head_cost)
+VALUES ("fruit", 1000);
+
+INSERT INTO departments (department_name, over_head_cost)
+VALUES ("toy", 4500);
+
+INSERT INTO departments (department_name, over_head_cost)
+VALUES ("food", 3500);
